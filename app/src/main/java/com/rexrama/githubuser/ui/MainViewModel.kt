@@ -17,13 +17,13 @@ class MainViewModel : ViewModel() {
     private val apiKey = BuildConfig.API_KEY
 
     private val _githubUserList = MutableLiveData<List<GithubUser>>()
-    val githubUserList : LiveData<List<GithubUser>> = _githubUserList
+    val githubUserList: LiveData<List<GithubUser>> = _githubUserList
 
     private val _loading = MutableLiveData<Boolean>()
-    val loading : LiveData<Boolean> = _loading
+    val loading: LiveData<Boolean> = _loading
 
     private val _dataNotFound = MutableLiveData<Boolean>()
-    val dataNotFound : LiveData<Boolean> = _dataNotFound
+    val dataNotFound: LiveData<Boolean> = _dataNotFound
 
     init {
         displayUserList()
@@ -52,7 +52,7 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    fun searchGithubUser(username : String) {
+    fun searchGithubUser(username: String) {
         _loading.value = true
         val client = apiService.searchGithubUsers(username, apiKey)
         client.enqueue(object : Callback<GithubResponse> {

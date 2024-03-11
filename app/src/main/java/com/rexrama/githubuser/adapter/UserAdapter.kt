@@ -10,7 +10,8 @@ import com.rexrama.githubuser.data.GithubUser
 import com.rexrama.githubuser.databinding.ItemRowUserBinding
 
 
-class UserAdapter(private val githubUserList: List<GithubUser>) : RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
+class UserAdapter(private val githubUserList: List<GithubUser>) :
+    RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
 
     private var onItemClickCallBack: OnItemClickCallback? = null
 
@@ -44,7 +45,7 @@ class UserAdapter(private val githubUserList: List<GithubUser>) : RecyclerView.A
         this.onItemClickCallBack = onItemClickCallback
     }
 
-    interface  OnItemClickCallback {
+    interface OnItemClickCallback {
         fun onItemClicked(data: GithubUser)
     }
 

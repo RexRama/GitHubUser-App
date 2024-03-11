@@ -10,18 +10,30 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("search/users")
-    fun searchGithubUsers(@Query("q") username: String, @Query("api_key") apiKey: String) : Call<GithubResponse>
+    fun searchGithubUsers(
+        @Query("q") username: String,
+        @Query("api_key") apiKey: String
+    ): Call<GithubResponse>
 
     @GET("users")
-    fun getGithubUserList(@Query("api_key") apiKey: String) : Call<List<GithubUser>>
+    fun getGithubUserList(@Query("api_key") apiKey: String): Call<List<GithubUser>>
 
     @GET("users/{username}")
-    fun getDetailGithubUser(@Path("username") username: String, @Query("api_key") apiKey: String) : Call<GithubUser>
+    fun getDetailGithubUser(
+        @Path("username") username: String,
+        @Query("api_key") apiKey: String
+    ): Call<GithubUser>
 
     @GET("users/{username}/followers")
-    fun getFollowerList(@Path("username") username: String, @Query("api_key") apiKey: String) : Call<List<GithubUser>>
+    fun getFollowerList(
+        @Path("username") username: String,
+        @Query("api_key") apiKey: String
+    ): Call<List<GithubUser>>
 
     @GET("users/{username}/following")
-    fun getFollowingList(@Path("username") username: String, @Query("api_key") apiKey: String) : Call<List<GithubUser>>
+    fun getFollowingList(
+        @Path("username") username: String,
+        @Query("api_key") apiKey: String
+    ): Call<List<GithubUser>>
 
 }

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        viewModel.dataNotFound.observe(this) {isDataNotFound ->
+        viewModel.dataNotFound.observe(this) { isDataNotFound ->
             if (isDataNotFound) {
                 binding.tvNoData.visibility = View.VISIBLE
                 binding.rvGithubUserList.visibility = View.GONE
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(user: MenuItem): Boolean {
-        when(user.itemId) {
+        when (user.itemId) {
             R.id.action_search -> {
                 val searchUser: MenuItem = user
                 searchView = searchUser.actionView as SearchView
@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
                 })
                 return true
             }
+
             else -> return false
         }
     }

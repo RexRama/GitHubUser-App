@@ -12,7 +12,7 @@ class DetailViewPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter
 
     override fun createFragment(position: Int): Fragment {
         val fragment = DetailFollowFragment()
-        val titleTabLayout : String = when(position) {
+        val titleTabLayout: String = when (position) {
             0 -> DetailFollowFragment.FOLLOWER
             1 -> DetailFollowFragment.FOLLOWING
             else -> ""

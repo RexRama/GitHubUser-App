@@ -17,10 +17,10 @@ class DetailViewModel : ViewModel() {
     private val apiKey = BuildConfig.API_KEY
 
     private val _loading = MutableLiveData<Boolean>()
-    val loading : LiveData<Boolean> = _loading
+    val loading: LiveData<Boolean> = _loading
 
     private val _detailGithubUser = MutableLiveData<GithubUser>()
-    val detailGithubUser : LiveData<GithubUser> = _detailGithubUser
+    val detailGithubUser: LiveData<GithubUser> = _detailGithubUser
 
     fun getDetailGithubUser(username: String) {
         _loading.value = true

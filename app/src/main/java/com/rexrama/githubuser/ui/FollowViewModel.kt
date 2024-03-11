@@ -24,7 +24,7 @@ class FollowViewModel : ViewModel() {
     val followingList: LiveData<List<GithubUser>> = _followingList
 
     private val _dataNotFound = MutableLiveData<Boolean>()
-    val dataNotFound : LiveData<Boolean> = _dataNotFound
+    val dataNotFound: LiveData<Boolean> = _dataNotFound
 
     fun displayListFollower(username: String) {
         _loading.value = true

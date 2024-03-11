@@ -25,11 +25,13 @@ class DetailFollowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailFollowerBinding.inflate(inflater, container, false)
-        followViewModel = ViewModelProvider(this@DetailFollowFragment.requireActivity())[FollowViewModel::class.java]
+        followViewModel =
+            ViewModelProvider(this@DetailFollowFragment.requireActivity())[FollowViewModel::class.java]
 
         @Suppress("DEPRECATION")
-        val userData : GithubUser? = requireActivity().intent.getParcelableExtra(MainActivity.EXTRA_DATA)
-        val username : String = userData?.login ?: ""
+        val userData: GithubUser? =
+            requireActivity().intent.getParcelableExtra(MainActivity.EXTRA_DATA)
+        val username: String = userData?.login ?: ""
         val tabTitle = arguments?.getString(TAB_TITLE)
         currentTab = tabTitle
         binding.rvFragmentFollower.layoutManager = LinearLayoutManager(activity)
@@ -61,6 +63,7 @@ class DetailFollowFragment : Fragment() {
                 when (currentTab) {
                     FOLLOWER -> binding.tvNoData.text =
                         resources.getString(R.string.no_follow_found, "Follower")
+
                     FOLLOWING -> binding.tvNoData.text =
                         resources.getString(R.string.no_follow_found, "Following")
                 }

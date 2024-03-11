@@ -22,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         @Suppress("DEPRECATION")
-        val userData : GithubUser? = intent.getParcelableExtra(MainActivity.EXTRA_DATA)
+        val userData: GithubUser? = intent.getParcelableExtra(MainActivity.EXTRA_DATA)
         val username: String = userData?.login ?: ""
         detailViewModel = ViewModelProvider(this@DetailActivity)[DetailViewModel::class.java]
         detailViewModel.getDetailGithubUser(username)
@@ -36,7 +36,8 @@ class DetailActivity : AppCompatActivity() {
                 tvDetailName.text = detailGithubUser.name
                 tvDetailLocation.text = detailGithubUser.location
                 tvDetailCompany.text = detailGithubUser.company
-                tvDetailRepo.text = resources.getString(R.string.public_repos, detailGithubUser.publicRepos)
+                tvDetailRepo.text =
+                    resources.getString(R.string.public_repos, detailGithubUser.publicRepos)
             }
             when {
                 detailGithubUser.name == null || detailGithubUser.location == null || detailGithubUser.company == null -> {
