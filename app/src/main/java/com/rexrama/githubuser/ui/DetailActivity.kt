@@ -70,10 +70,6 @@ class DetailActivity : AppCompatActivity() {
 
 
     private fun showLoading(loading: Boolean) {
-        if (loading) {
-            binding.detailProgressBar.visibility = View.VISIBLE
-        } else {
-            binding.detailProgressBar.visibility = View.GONE
-        }
+        binding.detailProgressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
 }

@@ -9,4 +9,5 @@
     <string name="public_repos">%d Repository</string>
     <string name="data_not_found">User Data not Found</string>
     <string name="no_follow_found">%s Data not Found</string>
+    <string name="splashscreen_image">Splashscreen image</string>
 </resources>

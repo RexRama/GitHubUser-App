@@ -11,6 +11,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
+        android:contentDescription="@string/splashscreen_image"
         android:foregroundGravity="center"
         android:src="@drawable/ic_logo"
         app:layout_constraintBottom_toBottomOf="parent"

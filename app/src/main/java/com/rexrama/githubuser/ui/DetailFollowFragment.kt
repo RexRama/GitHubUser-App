@@ -97,11 +97,7 @@ class DetailFollowFragment : Fragment() {
     }
 
     private fun showLoading(loading: Boolean) {
-        if (loading) {
-            binding.pbFragmentFollower.visibility = View.VISIBLE
-        } else {
-            binding.pbFragmentFollower.visibility = View.GONE
-        }
+        binding.pbFragmentFollower.visibility = if (loading) View.VISIBLE else View.GONE
     }
 
     companion object {
