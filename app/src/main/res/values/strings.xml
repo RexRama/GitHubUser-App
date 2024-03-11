@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GitHub User</string>
+    <string name="github_username">Github Username</string>
+    <string name="tv_user_type">Type</string>
+    <string name="github_name">Full Name</string>
+    <string name="btn_detail">More</string>
+    <string name="detail_location">Location</string>
+    <string name="detail_company">Company</string>
+    <string name="public_repos">%d Repository</string>
+    <string name="data_not_found">User Data not Found</string>
+    <string name="no_follow_found">%s Data not Found</string>
+</resources>
