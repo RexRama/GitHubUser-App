@@ -1,18 +1,24 @@
-package com.rexrama.githubuser.viewmodel
+package com.rexrama.githubuser.main
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.rexrama.githubuser.BuildConfig
 import com.rexrama.githubuser.api.ApiConfig
 import com.rexrama.githubuser.data.GithubResponse
 import com.rexrama.githubuser.data.GithubUser
+import com.rexrama.githubuser.pref.SettingPreference
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel : ViewModel() {
+class MainViewModel(private val pref: SettingPreference) : ViewModel() {
+    val isDarkMode : LiveData<Boolean> = pref.getThemeSetting().asLiveData()
+
     private val apiService = ApiConfig.getApiService()
     private val apiKey = BuildConfig.API_KEY
 
@@ -80,6 +86,16 @@ class MainViewModel : ViewModel() {
                 Log.e("MainViewModel", "Network request failed: ${t.message}")
             }
         })
+    }
+
+    fun checkDarkMode() : Boolean? {
+        return isDarkMode.value
+    }
+
+    fun saveThemeSetting(isDarkModeActive: Boolean) {
+        viewModelScope.launch {
+            pref.saveThemeSetting(isDarkModeActive)
+        }
     }
 
 }

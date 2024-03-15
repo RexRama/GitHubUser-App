@@ -10,7 +10,7 @@
         android:id="@+id/detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.DetailActivity">
+        tools:context=".detail.DetailActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_detail"

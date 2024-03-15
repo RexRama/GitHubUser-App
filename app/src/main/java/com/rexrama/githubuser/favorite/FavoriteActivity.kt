@@ -1,4 +1,4 @@
-package com.rexrama.githubuser.ui
+package com.rexrama.githubuser.favorite
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rexrama.githubuser.adapter.FavoriteUserAdapter
 import com.rexrama.githubuser.database.FavoriteUser
 import com.rexrama.githubuser.databinding.ActivityFavoriteBinding
+import com.rexrama.githubuser.detail.DetailActivity
 import com.rexrama.githubuser.pref.SettingPreference
 import com.rexrama.githubuser.pref.dataStore
 import com.rexrama.githubuser.repository.FavoriteUserRepository
 import com.rexrama.githubuser.helper.ViewModelFactory
-import com.rexrama.githubuser.viewmodel.FavoriteViewModel
 
 class FavoriteActivity : AppCompatActivity() {
 

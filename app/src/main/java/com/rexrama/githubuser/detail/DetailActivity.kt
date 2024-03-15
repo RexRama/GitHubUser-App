@@ -1,4 +1,4 @@
-package com.rexrama.githubuser.ui
+package com.rexrama.githubuser.detail
 
 import android.os.Bundle
 import android.view.View
@@ -15,16 +15,13 @@ import com.rexrama.githubuser.databinding.ActivityDetailBinding
 import com.rexrama.githubuser.helper.ViewModelFactory
 import com.rexrama.githubuser.pref.SettingPreference
 import com.rexrama.githubuser.pref.dataStore
-import com.rexrama.githubuser.viewmodel.AddFavoriteViewModel
-import com.rexrama.githubuser.viewmodel.DetailViewModel
-import com.rexrama.githubuser.viewmodel.ModeSwitchViewModel
+import com.rexrama.githubuser.favorite.FavoriteActivity
+import com.rexrama.githubuser.main.MainActivity
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var detailViewModel: DetailViewModel
-    private lateinit var addFavoriteViewModel: AddFavoriteViewModel
-    private lateinit var themeViewModel: ModeSwitchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +42,6 @@ class DetailActivity : AppCompatActivity() {
             this@DetailActivity, viewModelFactory
         )[DetailViewModel::class.java]
         detailViewModel.getDetailGithubUser(username)
-        addFavoriteViewModel = ViewModelProvider(
-            this@DetailActivity, viewModelFactory
-        )[AddFavoriteViewModel::class.java]
-        themeViewModel = ViewModelProvider(
-            this@DetailActivity, viewModelFactory
-        )[ModeSwitchViewModel::class.java]
 
 
 
@@ -91,7 +82,7 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel.loading.observe(this) {
             showLoading(it)
         }
-        themeViewModel.isDarkMode.observe(this) { isDarkMode ->
+        detailViewModel.isDarkMode.observe(this) { isDarkMode ->
             val tintResId = if (isDarkMode) {
                 R.color.black
             } else {
@@ -100,7 +91,7 @@ class DetailActivity : AppCompatActivity() {
             binding.fabFavorite.backgroundTintList =
                 ContextCompat.getColorStateList(this, tintResId)
         }
-        addFavoriteViewModel.favoriteUserIsExist.observe(this) { favoriteUserIsExist ->
+        detailViewModel.favoriteUserIsExist.observe(this) { favoriteUserIsExist ->
             val drawableResId = if (favoriteUserIsExist) {
                 R.drawable.baseline_favorite_light_24
             } else {
@@ -122,10 +113,10 @@ class DetailActivity : AppCompatActivity() {
                 type = userData.type,
                 publicRepos = binding.tvDetailRepo.text.toString()
             )
-            if (addFavoriteViewModel.checkFavoriteUserIsExist()!!) {
-                addFavoriteViewModel.deleteFavUser(favoriteUser)
+            if (detailViewModel.checkFavoriteUserIsExist()!!) {
+                detailViewModel.deleteFavUser(favoriteUser)
             } else {
-                addFavoriteViewModel.addFavUser(favoriteUser)
+                detailViewModel.addFavUser(favoriteUser)
             }
         }
 

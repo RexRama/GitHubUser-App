@@ -5,7 +5,7 @@
     android:id="@+id/layout_follower"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.DetailFollowFragment">
+    tools:context=".detail.DetailFollowFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_fragment_follower"

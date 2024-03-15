@@ -1,4 +1,4 @@
-package com.rexrama.githubuser.viewmodel
+package com.rexrama.githubuser.favorite
 
 import android.app.Application
 import com.rexrama.githubuser.database.FavoriteUser

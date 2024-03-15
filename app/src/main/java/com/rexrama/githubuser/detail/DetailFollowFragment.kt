@@ -1,4 +1,4 @@
-package com.rexrama.githubuser.ui
+package com.rexrama.githubuser.detail
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,8 @@ import com.rexrama.githubuser.databinding.FragmentDetailFollowerBinding
 import com.rexrama.githubuser.helper.ViewModelFactory
 import com.rexrama.githubuser.pref.SettingPreference
 import com.rexrama.githubuser.pref.dataStore
-import com.rexrama.githubuser.viewmodel.FollowViewModel
+import com.rexrama.githubuser.favorite.FavoriteActivity
+import com.rexrama.githubuser.main.MainActivity
 
 
 class DetailFollowFragment : Fragment() {

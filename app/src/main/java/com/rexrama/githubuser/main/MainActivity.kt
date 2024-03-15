@@ -1,4 +1,4 @@
-package com.rexrama.githubuser.ui
+package com.rexrama.githubuser.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,17 +15,16 @@ import com.rexrama.githubuser.R
 import com.rexrama.githubuser.adapter.UserAdapter
 import com.rexrama.githubuser.data.GithubUser
 import com.rexrama.githubuser.databinding.ActivityMainBinding
+import com.rexrama.githubuser.detail.DetailActivity
 import com.rexrama.githubuser.helper.ViewModelFactory
 import com.rexrama.githubuser.pref.SettingPreference
 import com.rexrama.githubuser.pref.dataStore
-import com.rexrama.githubuser.viewmodel.MainViewModel
-import com.rexrama.githubuser.viewmodel.ModeSwitchViewModel
+import com.rexrama.githubuser.favorite.FavoriteActivity
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var themeViewModel: ModeSwitchViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var rvUsers: RecyclerView
     private lateinit var searchView: SearchView
@@ -42,9 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel =
             ViewModelProvider(this@MainActivity, viewModelFactory)[MainViewModel::class.java]
-        themeViewModel = ViewModelProvider(
-            this@MainActivity, viewModelFactory
-        )[ModeSwitchViewModel::class.java]
         setAppTheme()
 
         viewModel.githubUserList.observe(this) { githubUserList ->
@@ -66,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        themeViewModel.isDarkMode.observe(this) { isDarkModeActive: Boolean ->
+        viewModel.isDarkMode.observe(this) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
@@ -80,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setAppTheme() {
-        val isDarkModeActive = themeViewModel.checkDarkMode() ?: false
+        val isDarkModeActive = viewModel.checkDarkMode() ?: false
         if (isDarkModeActive) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
@@ -145,8 +141,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.mode_switch -> {
-                val isDarkMode = themeViewModel.checkDarkMode()!!
-                themeViewModel.saveThemeSetting(!isDarkMode)
+                val isDarkMode = viewModel.checkDarkMode()!!
+                viewModel.saveThemeSetting(!isDarkMode)
                 invalidateOptionsMenu()
                 return true
             }
@@ -157,7 +153,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val isDarkMode: Boolean = themeViewModel.checkDarkMode() ?: return true
+        val isDarkMode: Boolean = viewModel.checkDarkMode() ?: return true
         val modeIcon = menu?.findItem(R.id.mode_switch)
         val searchIcon = menu?.findItem(R.id.action_search)
         val favIcon = menu?.findItem(R.id.to_favorite)
