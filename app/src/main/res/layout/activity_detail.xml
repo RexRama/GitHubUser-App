@@ -33,12 +33,23 @@
                 tools:ignore="ImageContrastCheck"
                 tools:src="@tools:sample/avatars" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/baseline_favorite_border_light_24"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_detail_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white_shade"
+                tools:ignore="ContentDescription" />
+
             <TextView
                 android:id="@+id/tv_detail_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/design_default_color_on_primary"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +63,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/design_default_color_on_primary"
                 app:layout_constraintBottom_toTopOf="@id/tv_detail_company"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +76,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textAlignment="center"
-                android:textColor="@color/design_default_color_on_primary"
                 app:layout_constraintBottom_toTopOf="@id/tv_detail_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +88,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/design_default_color_on_primary"
                 app:layout_constraintBottom_toTopOf="@id/tv_detail_repo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/design_default_color_on_primary"
+                android:layout_marginBottom="8dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,6 +110,7 @@
 
             <ProgressBar
                 android:id="@+id/detail_progressBar"
+                style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
@@ -121,7 +130,7 @@
             app:layout_constraintTop_toBottomOf="@id/layout_detail"
             app:layout_constraintWidth_default="wrap"
             app:tabBackground="@drawable/tab_layout_select"
-            app:tabIndicatorColor="@color/gold"
+            app:tabIndicatorColor="@color/teal_dark"
             app:tabSelectedTextColor="@color/white_shade"
             app:tabTextColor="@color/black" />
 
@@ -131,6 +140,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_follower_tab" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

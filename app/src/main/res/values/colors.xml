@@ -3,13 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white_shade">#ECF2F8</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background_dark">#201a19</color>
-    <color name="background">#a08c8a</color>
-    <color name="maroon">#31111D</color>
-    <color name="red">#bf0613</color>
-    <color name="red_light">#93000b</color>
-    <color name="red_dark">#690005</color>
-    <color name="purple_dark">#21005D</color>
-    <color name="purple_darker">#1D192B</color>
-    <color name="gold">#FFD700</color>
+    <color name="white_teal">#E3FDFD</color>
+    <color name="teal">#71C9CE</color>
+    <color name="teal_light">#A6E3E9</color>
+    <color name="teal_lighter">#CBF1F5</color>
+    <color name="teal_dark">#00ADB5</color>
+    <color name="primary_darker">#222831</color>
+    <color name="primary_dark">#393E46</color>
 </resources>
