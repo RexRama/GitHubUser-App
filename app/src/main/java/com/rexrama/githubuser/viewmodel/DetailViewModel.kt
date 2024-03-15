@@ -1,4 +1,4 @@
-package com.rexrama.githubuser.ui
+package com.rexrama.githubuser.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -13,6 +13,8 @@ import retrofit2.Response
 
 
 class DetailViewModel : ViewModel() {
+
+
     private val apiService = ApiConfig.getApiService()
     private val apiKey = BuildConfig.API_KEY
 
@@ -21,6 +23,8 @@ class DetailViewModel : ViewModel() {
 
     private val _detailGithubUser = MutableLiveData<GithubUser>()
     val detailGithubUser: LiveData<GithubUser> = _detailGithubUser
+
+
 
     fun getDetailGithubUser(username: String) {
         _loading.value = true
@@ -39,4 +43,8 @@ class DetailViewModel : ViewModel() {
             }
         })
     }
+
+
+
+
 }

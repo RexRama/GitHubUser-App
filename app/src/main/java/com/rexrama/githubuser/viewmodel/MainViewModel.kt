@@ -1,4 +1,4 @@
-package com.rexrama.githubuser.ui
+package com.rexrama.githubuser.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData

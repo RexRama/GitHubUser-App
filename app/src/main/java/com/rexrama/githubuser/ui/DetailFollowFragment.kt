@@ -11,7 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.rexrama.githubuser.R
 import com.rexrama.githubuser.adapter.UserAdapter
 import com.rexrama.githubuser.data.GithubUser
+import com.rexrama.githubuser.database.FavoriteUser
 import com.rexrama.githubuser.databinding.FragmentDetailFollowerBinding
+import com.rexrama.githubuser.helper.ViewModelFactory
+import com.rexrama.githubuser.pref.SettingPreference
+import com.rexrama.githubuser.pref.dataStore
+import com.rexrama.githubuser.viewmodel.FollowViewModel
 
 
 class DetailFollowFragment : Fragment() {
@@ -25,13 +30,20 @@ class DetailFollowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetailFollowerBinding.inflate(inflater, container, false)
+        val pref = SettingPreference.getInstance(requireContext().dataStore)
+        val viewModelFactory =
+            ViewModelFactory(this@DetailFollowFragment.requireActivity().application, "", pref)
         followViewModel =
-            ViewModelProvider(this@DetailFollowFragment.requireActivity())[FollowViewModel::class.java]
+            ViewModelProvider(
+                this@DetailFollowFragment.requireActivity(), viewModelFactory
+            )[FollowViewModel::class.java]
 
         @Suppress("DEPRECATION")
         val userData: GithubUser? =
             requireActivity().intent.getParcelableExtra(MainActivity.EXTRA_DATA)
-        val username: String = userData?.login ?: ""
+        @Suppress("DEPRECATION") val favoriteData: FavoriteUser? =
+            requireActivity().intent.getParcelableExtra(FavoriteActivity.EXTRA_FAVORITE)
+        val username: String = userData?.login ?: favoriteData?.username.toString()
         val tabTitle = arguments?.getString(TAB_TITLE)
         currentTab = tabTitle
         binding.rvFragmentFollower.layoutManager = LinearLayoutManager(activity)
