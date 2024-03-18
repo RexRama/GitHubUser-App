@@ -1,7 +1,7 @@
 package com.rexrama.githubuser.api
 
-import com.rexrama.githubuser.data.GithubUser
 import com.rexrama.githubuser.data.GithubResponse
+import com.rexrama.githubuser.data.GithubUser
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
