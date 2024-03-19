@@ -3,23 +3,24 @@ package com.rexrama.githubuser.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.rexrama.githubuser.R
 import com.rexrama.githubuser.adapter.UserAdapter
 import com.rexrama.githubuser.data.GithubUser
 import com.rexrama.githubuser.databinding.ActivityMainBinding
 import com.rexrama.githubuser.detail.DetailActivity
+import com.rexrama.githubuser.favorite.FavoriteActivity
 import com.rexrama.githubuser.helper.ViewModelFactory
 import com.rexrama.githubuser.pref.SettingPreference
 import com.rexrama.githubuser.pref.dataStore
-import com.rexrama.githubuser.favorite.FavoriteActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -27,17 +28,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var rvUsers: RecyclerView
-    private lateinit var searchView: SearchView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val pref = SettingPreference.getInstance(dataStore)
         val viewModelFactory = ViewModelFactory(this@MainActivity.application, "", pref)
+        val navigationView = binding.navigationDrawer
+
+        setupNavigation(navigationView)
+        searchAction()
+
 
         viewModel =
             ViewModelProvider(this@MainActivity, viewModelFactory)[MainViewModel::class.java]
@@ -53,10 +56,9 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.dataNotFound.observe(this) { isDataNotFound ->
             if (isDataNotFound) {
-                binding.tvNoData.visibility = View.VISIBLE
+                Toast.makeText(this@MainActivity, "User Data Not Found", Toast.LENGTH_SHORT).show()
                 binding.rvGithubUserList.visibility = View.GONE
             } else {
-                binding.tvNoData.visibility = View.GONE
                 binding.rvGithubUserList.visibility = View.VISIBLE
             }
 
@@ -69,9 +71,49 @@ class MainActivity : AppCompatActivity() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+
+
+
         rvUsers = binding.rvGithubUserList
         rvUsers.setHasFixedSize(true)
 
+
+    }
+
+    private fun setupNavigation(navigationView: NavigationView) {
+        navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.to_favorite -> {
+                    val toFavorite = Intent(this@MainActivity, FavoriteActivity::class.java)
+                    startActivity(toFavorite)
+                    return@setNavigationItemSelectedListener true
+                }
+                R.id.mode_switch -> {
+                    val isDarkMode = viewModel.checkDarkMode()!!
+                    viewModel.saveThemeSetting(!isDarkMode)
+                    invalidateOptionsMenu()
+                    return@setNavigationItemSelectedListener true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun searchAction() {
+        with(binding) {
+            searchView.setupWithSearchBar(searchBar)
+            searchView.editText.setOnEditorActionListener { _, actionId, _ ->
+                searchBar.setText(searchView.text)
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    viewModel.searchGithubUser(searchView.text.toString())
+                    searchView.clearFocus()
+                }
+                searchView.hide()
+                true
+            }
+            searchBar.setNavigationOnClickListener { drawerLayout.open() }
+
+        }
 
     }
 
@@ -79,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         val isDarkModeActive = viewModel.checkDarkMode() ?: false
         if (isDarkModeActive) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
@@ -101,72 +144,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
-    }
-
-    override fun onOptionsItemSelected(user: MenuItem): Boolean {
-        when (user.itemId) {
-            R.id.action_search -> {
-                val searchUser: MenuItem = user
-                searchView = searchUser.actionView as SearchView
-
-                searchUser.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
-                    override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
-                        viewModel.displayUserList()
-                        return true
-                    }
-
-                    override fun onMenuItemActionExpand(item: MenuItem): Boolean {
-                        return true
-                    }
-                })
-
-                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextChange(newText: String?): Boolean {
-                        return false
-                    }
-
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        viewModel.searchGithubUser(query.toString())
-                        searchView.clearFocus()
-                        return true
-                    }
-                })
-                return true
-            }
-
-            R.id.to_favorite -> {
-                val toFavorite = Intent(this@MainActivity, FavoriteActivity::class.java)
-                startActivity(toFavorite)
-                return true
-            }
-
-            R.id.mode_switch -> {
-                val isDarkMode = viewModel.checkDarkMode()!!
-                viewModel.saveThemeSetting(!isDarkMode)
-                invalidateOptionsMenu()
-                return true
-            }
-
-            else -> return false
-        }
-
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val isDarkMode: Boolean = viewModel.checkDarkMode() ?: return true
-        val modeIcon = menu?.findItem(R.id.mode_switch)
-        val searchIcon = menu?.findItem(R.id.action_search)
-        val favIcon = menu?.findItem(R.id.to_favorite)
-        if (isDarkMode) {
-            modeIcon?.setIcon(R.drawable.baseline_dark_mode_24)
-            searchIcon?.setIcon(R.drawable.ic_baseline_search_dark_24)
-            favIcon?.setIcon(R.drawable.baseline_favorite_border_dark_24)
-        } else {
-            modeIcon?.setIcon(R.drawable.baseline_light_24)
-            searchIcon?.setIcon(R.drawable.ic_baseline_search_light_24)
-            favIcon?.setIcon(R.drawable.baseline_favorite_border_light_24)
-        }
-        return super.onPrepareOptionsMenu(menu)
     }
 
     private fun showLoading(isLoading: Boolean) {

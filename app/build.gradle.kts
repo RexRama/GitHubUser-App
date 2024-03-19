@@ -49,10 +49,10 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.google.material.v190)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material.v190)
+    implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.espresso.contrib)

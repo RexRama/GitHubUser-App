@@ -23,7 +23,7 @@ class ViewModelFactory(
         } else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(application, username, pref) as T
         } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
-            return FavoriteViewModel(application) as T
+            return FavoriteViewModel(application, pref) as T
         } else if (modelClass.isAssignableFrom(FollowViewModel::class.java)) {
             return FollowViewModel() as T
         }

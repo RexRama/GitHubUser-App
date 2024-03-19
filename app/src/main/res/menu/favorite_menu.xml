@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/to_favorite"
-        android:icon="@drawable/baseline_favorite_light_24"
+        android:id="@+id/to_home"
+        android:icon="@drawable/baseline_home_light_24"
         app:showAsAction="ifRoom"
-        android:title="@string/favorite_user" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/mode_switch"
         android:icon="@drawable/baseline_light_24"
         app:showAsAction="ifRoom"
-        android:title="@string/theme_mode" />
+        android:title="@string/theme_mode"/>
 
 </menu>
